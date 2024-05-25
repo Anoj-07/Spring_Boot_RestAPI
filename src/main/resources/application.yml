@@ -1,0 +1,65 @@
+server:
+  port:8080
+
+Welcome:
+  message: 'Welcome to Far Western Nepal Achham'
+#default one
+spring:
+  profiles:
+    active: qa
+
+
+---
+
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/dcbapp
+      password: admin
+      username: root
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: admin
+    url: jdbc:mysql://localhost:3306/dcbapp-qa
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans, info"
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: admin
+    url: jdbc:mysql://localhost:3306/dcbapp-prod
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
